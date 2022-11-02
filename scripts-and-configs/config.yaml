@@ -1,0 +1,28 @@
+ssh_authorized_keys:
+- ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC3uaXtrAXlcx8CQTMak9g5MQpUmJU2ZjDk2a7ng/BhSeFMh2TvBiGiWRAmp7RCbNjbC2MP20SjCL7l2SOWF+8Sphr2I6L9CyDFCb1/LT51L1mwIOshKaFjbCo3vazYvBBfuct0zZU+l+DnWInS5i00Aotgzu4wp8wpEPCFDGot0LPAByj69JMXObsL9oMF1n7LQC0jVnD6f0ffusWkc9zycl6zS5WPEXWMxsr6tR9qtYadymV+azz3FE23ctINeMAuPiRUgtr6kXYEkzY1dOHIIPby+etBIC7D7LHKRm6Z4Dp+oaci37suO+gfVF/OQT/XthzEswR0P4uyv5r/PSsyXa8E+iv2kei75edSpxTldF4oOEX8zAPPyuACiaDWmA6EvAIzT373J/8vHm43RK3nF/tNR18/7Jo6AyFNU0Mmqik05VHPsGagD8rzSdm+DjjU3EP6N+Ovu0Kisa/6FJXqFWi/eABlUpo+oqFnIMWOU9iGozxUe4jj7sGhuTmWgF8= alpozeren@Alps-MacBook-Air.local
+- ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDogAHwFXH0j6iXWr/z47I61SShI4csy0ecABp5HuVolASOHTK6YM/N3Rx9rm7oOfr8TS3QT+uW4sjs76149NgrMzBEZlWhCMIvx/unjDDg2ZSuHQRY8KKKaeVj4Q94Zg9zhI4OrHdsLn55qWDiZOCwGsii5D+AJxCPDea33lgX7i1TRY/xHUU07N19KD8i0rr80cD0I9N7qqddbzl5xFDBv96qltRTRt8yLIcHaHtv9Y2maR+LvzxsQYnkwmqA1jScqaI6QWYdMB8jGlt0RESphaSGx0UszSy915L+loxitfMqpQ8geanonFa903GbRMRKnfqafPkKS4Z0X+2AjSCT5l9L+R34SoHTMPaVq0FIXpsa2QoPg1V4h9xm2QIGihen5lcCpd73zSObzU6otjBM0sfu9LYqR1wxyl6Y/Lj8+cxNpTp49u6gB3a/wY3uJqRn8hPfWfcengzGE8OBfmkUd0L3BrK8GpUJweScZO04co1g9Ba8tWB3DIGSq/Z3lR0= ozere@Alpo-SFF
+- ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCn7ByJ5bLEPax3Beb6WFyYwP0hIuKA8FTWQCaBcKgBjYDlAITJyw9+Bv26WeWI0BuKhWgdUZAEaqnCEZiShFSW3oWX7VxIfM+u0FsLWpAY/Uhj0nofQ1JhwkqLvMWjzr1zdm4mJV2BdfjwE4DPmZDeTOD9ZdcVDnLq6+UsiX/obznRTJeyfXJZQGTWP0gcJR3ChohzDOHCjsu1m8jRj511wesC9x8gOeXlGPPOg2OwFo6PFIfriwBqEHwK55OfMNZZyitN4lI3PiA/akNI3nasIRP4497ag+rA429QiJA+iyQlyG/XUdPMx1hh1Z3IutF4XW+hMT6XLPXKGHxstmiMDfumm5G9C9CGdBdsNCiRjvBolZ+ORUDpTv5K2j21nq4hFo4wd+wQF27dT94LPtM5E/scWAQ3VgefmkRPp8qIwASSqQqsnhc7ukZPRsQ9NmLu++g1ta6CuX38kJGMtX6gfY6oTypHjaA9dDkvOU4Qqu1qNDPtVBX/pbMY3YwKZw8= ericsson\\eozealp@E-5CG20874JT
+hostname: k3os-internet-box
+
+write_files:
+- encoding: ""
+  content: |-
+    #!/bin/bash
+    while ! kubectl cluster-info > /dev/null 2>&1; do
+      sleep 1
+    done
+    curl -S https://gist.githubusercontent.com/Alpostros/414f9630a2629589de71a2ca736072ed/raw/75c15347e8d0d11dddf0397a2b900c56310f751b/install-helm-and-configure-dhcpd.sh > /etc/local.d/install-helm-and-configure-dhcpd.sh
+    curl -S https://gist.githubusercontent.com/Alpostros/414f9630a2629589de71a2ca736072ed/raw/75c15347e8d0d11dddf0397a2b900c56310f751b/install-kubernetes-dashboard.sh > /etc/local.d/install-kubernetes-dashboard.sh
+    sleep 5
+    mkdir /home/rancher/.kube
+    cp /etc/rancher/k3s/k3s.yaml /home/rancher/.kube/config
+    bash /etc/local.d/install-kubernetes-dashboard.sh
+    bash /etc/local.d/install-helm-and-configure-dhcpd.sh
+    chown -R rancher: /home/rancher
+
+  owner: root
+  path: /etc/local.d/install-configure-kubernetes-dashboard-and-helm.start
+  permissions: '0777'
+  
+k3os:
+  password: "1234"
