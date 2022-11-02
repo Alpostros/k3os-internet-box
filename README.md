@@ -16,7 +16,7 @@ Usage: ./install.sh [--force-efi] [--debug] [--tty TTY] [--poweroff] [--takeover
 
 curl -S https://raw.githubusercontent.com/rancher/k3os/master/install.sh > install.sh
 
-sudo bash install.sh --config https://gist.githubusercontent.com/Alpostros/414f9630a2629589de71a2ca736072ed/raw/27c285fec52b38039a8c2a8f45472d4cd538718e/config.yaml /dev/sda https://github.com/rancher/k3os/releases/download/v0.21.5-k3s2r1/k3os-amd64.iso
+./install.sh --config https://gist.githubusercontent.com/Alpostros/414f9630a2629589de71a2ca736072ed/raw/27c285fec52b38039a8c2a8f45472d4cd538718e/config.yaml /dev/sda https://github.com/rancher/k3os/releases/download/v0.21.5-k3s2r1/k3os-amd64.iso
 ```
 You need to provide the cloud-init config file, disk to install k3os and the URL of the ISO file. After the installation you need to reboot.
 
