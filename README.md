@@ -12,6 +12,8 @@ Installation is done by booting with the live iso file and providing the config.
 ### Using Bootstrapped Installation Script
 The other installation option is to use [bootstrapped installation script](https://github.com/rancher/k3os#bootstrapped-installation) on a Linux device:
 ```shell
+Usage: ./install.sh [--force-efi] [--debug] [--tty TTY] [--poweroff] [--takeover] [--no-format] [--config https://.../config.yaml] DEVICE ISO_URL
+
 curl -S https://raw.githubusercontent.com/rancher/k3os/master/install.sh > install.sh
 
 sudo bash install.sh --config https://gist.githubusercontent.com/Alpostros/414f9630a2629589de71a2ca736072ed/raw/27c285fec52b38039a8c2a8f45472d4cd538718e/config.yaml /dev/sda https://github.com/rancher/k3os/releases/download/v0.21.5-k3s2r1/k3os-amd64.iso
