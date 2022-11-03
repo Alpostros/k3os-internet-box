@@ -35,7 +35,7 @@ Helm and [DHCPD](https://artifacthub.io/packages/helm/pnnl-miscscripts/dhcpd) in
 To install, configure and test k3os, I created a VM on my [TrueNAS Core](https://www.truenas.com/truenas-core/) home-server. TrueNAS Core is a Linux OS (based on FreeBSD) which is mainly built for NAS applications, but it also provides creation of VM's and jails. It uses KVM hypervisor for virtualization. An x86_64 VM with 1 core CPU, 2048MB of RAM and 10GB of disk space has been allocated for testing.
 
 ## Handling Updates
-As mentioned in the original [rancher/k3os] repository(https://github.com/rancher/k3os#automatic-upgrades), integration with [rancher/system-upgrade-controller](https://github.com/rancher/system-upgrade-controller) has been implemented as of v0.9.0. To enable a k3OS node to automatically upgrade from the latest GitHub release you will need to run the following command:  
+As mentioned in the original [rancher/k3os](https://github.com/rancher/k3os#automatic-upgrades) repository, integration with [rancher/system-upgrade-controller](https://github.com/rancher/system-upgrade-controller) has been implemented as of v0.9.0. To enable a k3OS node to automatically upgrade from the latest GitHub release you will need to run the following command:  
 ```shell
 kubectl label nodes -l k3os.io/mode k3os.io/upgrade=latest
 ```
