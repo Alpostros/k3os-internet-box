@@ -17,7 +17,7 @@ curl -S https://raw.githubusercontent.com/rancher/k3os/master/install.sh > insta
 
 ./install.sh --config https://gist.githubusercontent.com/Alpostros/ccace77e281038ade238299f078bec1f/raw/cc61b10fe985ded947702bc530d35e0d204e30c7/config.yaml /dev/sda https://github.com/rancher/k3os/releases/download/v0.21.5-k3s2r1/k3os-amd64.iso
 ```
-You need to provide the cloud-init config file, disk to install k3os and the URL of the ISO file. After the installation you need to reboot. If you provide the link of the [remastered iso]() release, you do not need to provide the cloud-init config file.
+You need to provide the cloud-init config file, disk to install k3os and the URL of the ISO file. After the installation you need to reboot. If you provide the link of the [remastered iso](https://github.com/Alpostros/k3os-internet-box/releases/tag/v0.21.5-k3s2r1) release, you do not need to provide the cloud-init config file.
 
 You can also use the ```--takeover``` flag in this installation script, which will install k3OS to the current root and override the grub.cfg. After a reboot of the system k3OS will then delete all files on the root partition that are not k3OS and then shutdown. This mode is particularly handy when creating cloud images.
 
