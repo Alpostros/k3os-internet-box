@@ -11,18 +11,14 @@ write_files:
     while ! kubectl cluster-info > /dev/null 2>&1; do
       sleep 1
     done
-    curl -S https://gist.githubusercontent.com/Alpostros/414f9630a2629589de71a2ca736072ed/raw/75c15347e8d0d11dddf0397a2b900c56310f751b/install-helm-and-configure-dhcpd.sh > /etc/local.d/install-helm-and-configure-dhcpd.sh
-    curl -S https://gist.githubusercontent.com/Alpostros/414f9630a2629589de71a2ca736072ed/raw/75c15347e8d0d11dddf0397a2b900c56310f751b/install-kubernetes-dashboard.sh > /etc/local.d/install-kubernetes-dashboard.sh
-    sleep 5
+    curl -S https://gist.githubusercontent.com/Alpostros/ccace77e281038ade238299f078bec1f/raw/78279ed0c28a8aecad9f0a066b23a90c382ac17e/install-helm-dhcpd.sh | bash
+    curl -S https://gist.githubusercontent.com/Alpostros/ccace77e281038ade238299f078bec1f/raw/78279ed0c28a8aecad9f0a066b23a90c382ac17e/install-kubernetes-dashboard.sh | bash
     mkdir /home/rancher/.kube
     cp /etc/rancher/k3s/k3s.yaml /home/rancher/.kube/config
-    bash /etc/local.d/install-kubernetes-dashboard.sh
-    bash /etc/local.d/install-helm-and-configure-dhcpd.sh
     chown -R rancher: /home/rancher
-
   owner: root
   path: /etc/local.d/install-configure-kubernetes-dashboard-and-helm.start
   permissions: '0777'
   
 k3os:
-  password: "1234"
+  password: "verysecure"
