@@ -22,7 +22,7 @@ You need to provide the cloud-init config file, disk to install k3os and the URL
 You can also use the ```--takeover``` flag in this installation script, which will install k3OS to the current root and override the grub.cfg. After a reboot of the system k3OS will then delete all files on the root partition that are not k3OS and then shutdown. This mode is particularly handy when creating cloud images.
 
 ###  Using the custom ISO file
-There is also an option to install k3os by using the [remastered iso](insert-link-here) that has been packed with the cloud-init config file. With this installation, you don't need to provide any config file like the other methods. You just need to ssh into the machine, use the [bootstrapped installation script](#using-bootstrapped-installation-script) or use ```sudo k3os install``` command mentioned in [booting from the live iso](#booting-from-the-live-iso) section. You can also log in as rancher user with password "verysecure".
+There is also an option to install k3os by using the [remastered iso](https://github.com/Alpostros/k3os-internet-box/releases/tag/v0.21.5-k3s2r1) that has been packed with the cloud-init config file. With this installation, you don't need to provide any config file like the other methods. You just need to ssh into the machine, use the [bootstrapped installation script](#using-bootstrapped-installation-script) or use ```sudo k3os install``` command mentioned in [booting from the live iso](#booting-from-the-live-iso) section. You can also log in as rancher user with password "verysecure".
 
 
 ### Information About Kubernetes Dashboard and HELM Installation Scripts
