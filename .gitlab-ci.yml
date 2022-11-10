@@ -1,0 +1,35 @@
+default:
+  tags:
+    - shell # Runner Selection
+    
+stages:
+- build
+- test
+
+build:
+  stage: build
+  image: rancher/k3os:v0.21.5-k3s2r1
+  script:
+    - echo "After the image is built, below tests will be executed."
+
+test-dashboard: # Test pods kubernetes-dashbaord and dashboard-metrics-scraper and check NodePort on service
+  stage: test
+  script:
+    - kubectl get svc kubernetes-dashboard -n kubernetes-dashboard | grep 30443 > /dev/null && echo "NodePort configured correctly" || echo "NodePort does not exist in config."
+    - kubectl get pods -n kubernetes-dashboard --show-labels | grep Running > /dev/null && echo "Pod running" || echo "Pod is not running"
+    - kubectl get pods -n kubernetes-dashboard --show-labels | grep dashboard-metrics-scraper | grep Running > /dev/null && echo "Pod running" || echo "Pod is not running"
+    - curl -S https://192.168.0.34:30443 | grep HTTP\ 200\ OK # send a curl to dashboard if it is available(HTTP 200 OK)
+
+test-helm:
+  stage: test
+  script:
+    - helm | grep The\ Kubernetes\ package\ manager > /dev/null && echo "Helm installed correctly" || echo "Helm not installed"
+    - helm list -A | grep NAME > /dev/null && echo "Cluster is visible to Helm" || echo "Config error, cluster is not visible to helm."
+
+test-dhcpd:
+  stage: test
+  script:
+    - helm list -A | grep dhcpd | grep deployed > /dev/null && echo "DHCPD deployed to cluster" || echo "DHCPD pod is not deployed."
+    - kubectl get pods -n dhcpd --show-labels | grep Running > /dev/null && echo "Pod running" || echo "Pod is not running."
+    - kubectl logs -l app=dhcpd -n dhcpd | grep Not\ configured > /dev/null && echo "DHCPD configuration issue, check logs" || echo "DCHPD configuration correct."
+
